@@ -4,6 +4,7 @@ import express from "express";
 import { connectDB } from "./config/database.js";
 import authRouter from "./routes/auth.routes.js";
 import accountRouter from "./routes/account.routes.js";
+import transactionRouter from "./routes/transaction.routes.js";
 import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 7777;
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/accounts", accountRouter);
+app.use("/api/transactions", transactionRouter);
 
 connectDB()
   .then(() => {
