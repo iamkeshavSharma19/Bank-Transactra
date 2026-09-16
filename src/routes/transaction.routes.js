@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as transactionController from "../controllers/transaction.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const transactionRouter = Router();
 
@@ -8,6 +9,10 @@ const transactionRouter = Router();
  * - Create a new transaction
  */
 
-transactionRouter.post("/", transactionController.handleCreateTransaction);
+transactionRouter.post(
+  "/",
+  authMiddleware,
+  transactionController.handleCreateTransaction,
+);
 
 export default transactionRouter;
