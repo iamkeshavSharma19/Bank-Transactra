@@ -11,4 +11,25 @@ const accountRouter = Router();
  */
 accountRouter.post("/", authMiddleware, accountController.handleCreateAccount);
 
+/**
+ * - GET /api/accounts/
+ * - GET all the accounts of the loggedIn User
+ * - Protected Route
+ */
+accountRouter.get(
+  "/",
+  authMiddleware,
+  accountController.getUserAccountsController,
+);
+
+/**
+ * - GET /api/accounts/balance:accountId
+ *
+ */
+accountRouter.get(
+  "/balance/:accountId",
+  authMiddleware,
+  accountController.getAccountBalanceController,
+);
+
 export default accountRouter;

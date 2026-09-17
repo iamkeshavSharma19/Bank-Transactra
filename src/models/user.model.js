@@ -33,13 +33,19 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    systemUser: {
+      type: Boolean,
+      default: false,
+      immutable: true,
+      select: false,
+    },
   },
   { timestamps: true },
 );
 
 userSchema.methods.validatePassword = async function (password) {
   const user = this;
-  
+
   const isPasswordValid = await bcrypt.compare(password, user.password);
   return isPasswordValid;
 };
