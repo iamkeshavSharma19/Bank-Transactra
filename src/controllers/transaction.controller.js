@@ -131,6 +131,10 @@ export const handleCreateTransaction = async (req, res) => {
       { session },
     );
 
+    // await (() => {
+    //   return new Promise((resolve) => setTimeout(resolve, 100 * 1000));
+    // });
+
     const debitLedgerEntry = await LedgerModel.create(
       [
         {
@@ -145,7 +149,7 @@ export const handleCreateTransaction = async (req, res) => {
 
     transaction.status = "COMPLETED";
 
-    await transaction.save();
+    await transaction.save( { session } );
 
     await session.commitTransaction();
 
@@ -156,6 +160,7 @@ export const handleCreateTransaction = async (req, res) => {
 
     res.status(201).json({
       message: "Transaction Completed Successfully",
+      transaction: transaction,
     });
   } catch (error) {
     res.status(400).json({
